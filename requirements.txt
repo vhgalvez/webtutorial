@@ -1,0 +1,5 @@
+
+Django>==3.1
+Django-environ==0.4.5
+djangorestframework==3.11.0
+psycopg2>=2.8
