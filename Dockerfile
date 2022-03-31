@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.8
+FROM python:3
 
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -10,10 +10,18 @@ WORKDIR /code
 
 COPY requirements.txt /code/
 
-# pyhon -m configuration path of files django and python
-RUN python -m pip install -r requirements.txt
+RUN pip3 install --no-cache-dir wheel
+RUN pip3 install --no-cache-dir -r requirements.txt
+
 
 COPY . /code/
+
+
+
+
+
+
+
 
 
 
