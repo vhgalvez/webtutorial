@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3
+FROM python:3.8
 
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -10,8 +10,8 @@ WORKDIR /code
 
 COPY requirements.txt /code/
 
-RUN pip3 install --no-cache-dir wheel
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip -r requirements.txt
+RUN python -m pip install psutil
 
 
 COPY . /code/

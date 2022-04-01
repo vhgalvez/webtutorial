@@ -9,12 +9,17 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+
 import os
 import environ
 
 from pathlib import Path
 
 env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -24,21 +29,23 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'le=+gom$2h#9wo)5ea4)wua-9gq_b3&&_gt)#b#9*y_h5%626#'
+# SECRET_KEY = '%ve5(h%p&hq)81-_=_(n38lwsuz=c#jr7s(*6qz1ftw1v%o(v-'
 
-SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = env('SECRET_KEY')
+
+SECRET_KEY = os.environ.get('SECRET_KEY', env('SECRET_KEY'))
+
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
 # DEBUG = True
-
-# ALLOWED_HOSTS = ['*']
-
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = tuple(env.list(ALLOWED_HOSTS, default=[]))
 
+# ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = (env.list(HOST_DNS, default=['*']))
 
 # Application definition
 
@@ -84,7 +91,6 @@ WSGI_APPLICATION = 'webtutorial.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
